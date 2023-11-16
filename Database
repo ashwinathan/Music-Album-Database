@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.io.*;
 
 public class Database {
     private List<Album> albums;
@@ -13,14 +12,23 @@ public class Database {
         albums.add(album);
     }
 
-    public void printAlbumsByArtist(String artist) {
-        List<Album> filteredAlbums = albums.stream()
-                                           .filter(album -> album.getArtist().equalsIgnoreCase(artist))
-                                           .collect(Collectors.toList());
-        if (filteredAlbums.isEmpty()) {
-            System.out.println("No albums found for artist: " + artist);
-        } else {
-            filteredAlbums.forEach(System.out::println);
+    public void updateAlbumScore(String albumName, int newScore) {
+        for (Album album : albums) {
+            if (album.getName().equalsIgnoreCase(albumName)) {
+                album.setScore(newScore);
+                System.out.println("Album score updated.");
+                return;
+            }
         }
+        System.out.println("Album not found.");
     }
-}
+
+    public void deleteAlbum(String albumName) {
+        albums.removeIf(album -> album.getName().equalsIgnoreCase(albumName));
+    }
+
+    public void printAlbumsByArtist(String artist) {
+        albums.stream()
+              .filter(album -> album.getArtist().equalsIgnoreCase(artist))
+              .forEach(System.out::println);
+    }
