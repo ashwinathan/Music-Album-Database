@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Database {
+    private List<Album> albums;
+
+    public Database() {
+        albums = new ArrayList<>();
+    }
+
+    public void addAlbum(Album album) {
+        albums.add(album);
+    }
+
+    public void printAlbumsByArtist(String artist) {
+        List<Album> filteredAlbums = albums.stream()
+                                           .filter(album -> album.getArtist().equalsIgnoreCase(artist))
+                                           .collect(Collectors.toList());
+        if (filteredAlbums.isEmpty()) {
+            System.out.println("No albums found for artist: " + artist);
+        } else {
+            filteredAlbums.forEach(System.out::println);
+        }
+    }
+}
