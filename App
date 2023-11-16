@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class App {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Database database = new Database();
+
+        while (true) {
+            System.out.println("Enter album name (or 'exit' to quit): ");
+            String name = scanner.nextLine();
+            if (name.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            System.out.println("Enter artist name: ");
+            String artist = scanner.nextLine();
+
+            System.out.println("Enter album score (1-10): ");
+            int score = Integer.parseInt(scanner.nextLine());
+
+            Album album = new Album(name, artist, score);
+            database.addAlbum(album);
+
+            System.out.println("Album added!");
+        }
+
+        System.out.println("Enter artist name to display their albums: ");
+        String artistName = scanner.nextLine();
+        database.printAlbumsByArtist(artistName);
+
+        scanner.close();
+    }
+}
